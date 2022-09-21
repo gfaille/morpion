@@ -23,7 +23,7 @@ def jouer () :
         placer = int(input()) - 1 # Le tableau commence à 0 donc j'enleve 1
 
         if [placer] == "_" :
-            liste_case[placer] = joueur
+            [placer] = joueur
             tour += 1
         else :
             print("Case occuper ! jouer autre par.")
@@ -40,4 +40,9 @@ def jouer () :
             afficher_grille(joueur)
             break 
     
+    if tour == 9 :
+        print("Match null")
+
+    joueur = "O" if joueur == "X" else "X"
+
 jouer()
