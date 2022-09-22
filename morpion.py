@@ -9,40 +9,16 @@ def afficher_grille () :
     for i in range (3) :
         print (liste_case[i])
 
-def jouer () :
-    """ fonction pour jouer, remplace les case vide par un X si c'est joueur 1 ou O si c'est joueur 2. """
+def jouer_coups () :
+    """fonction pour jouer un coups soit "X" soit "O" dans la grille"""
 
-    joueur = "X"
-    tour = 0
+    print("tour du joueur. " + joueur + " tapez de 1 à 9")
+    placer = int(input()) - 1
 
-    while True :
-
-        afficher_grille()
-        print("tour du joueur " + joueur + ". Entrez un nombre entre 1 à 9 .")
-
-        placer = int(input()) - 1 # Le tableau commence à 0 donc j'enleve 1
-
-        if [placer] == "_" :
-            [placer] = joueur
-            tour += 1
-        else :
-            print("Case occuper ! jouer autre par.")
-            continue
-        
-        if [0] == [1] == [2] != "_" \
-        or [3] == [4] == [5] != "_" \
-        or [6] == [7] == [8] != "_" \
-        or [0] == [3] == [6] != "_" \
-        or [1] == [4] == [7] != "_" \
-        or [2] == [5] == [8] != "_" \
-        or [0] == [4] == [8] != "_" \
-        or [2] == [4] == [6] != "_" :
-            afficher_grille(joueur)
-            break 
+    if liste_case[placer] == "_" :
+        placer = joueur 
+    else :
+        print("case occuper veuillez recommencez ailleur")
+        continue 
     
-    if tour == 9 :
-        print("Match null")
-
-    joueur = "O" if joueur == "X" else "X"
-
-jouer()
+jouer_coups()
