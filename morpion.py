@@ -10,16 +10,22 @@ def verification():
         or liste_case[1][0] == liste_case[1][1] == liste_case[1][2] != "_" \
         or liste_case[2][0] == liste_case[2][1] == liste_case[2][2] != "_" :
             return print("Gagné")
+            if True :
+                break
     # verification des colonnes
 
         if liste_case[0][0] == liste_case[1][0] == liste_case[2][0] != "_" \
         or liste_case[1][0] == liste_case[1][1] == liste_case[1][2] != "_" \
         or liste_case[2][0] == liste_case[2][1] == liste_case[2][2] != "_":
             return print("Gagné")
+            if True :
+                break
     # verification des diagonales
         if liste_case[0][0] == liste_case [1][1] == liste_case[2][2] != "_" \
         or liste_case[2][0] == liste_case [1][1] == liste_case [0][2] != "_":
             return print("Gagné")
+            if True :
+                break
 
 def afficher_grille (grille) :
     """ fonction pour créer la grille du morpion sur une ligne de 3X3. """
@@ -58,7 +64,7 @@ tour = 0
 
 while True :
     tour += 1
-    
+
     jouer_coups()
     verification()
     if joueur == "X" :
