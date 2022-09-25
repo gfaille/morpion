@@ -12,25 +12,25 @@ def jouer_coups () :
     """fonction pour demander au joueur de jouer un coups entre 1 à 9 et vérifier si le coups est valide."""
     while True :
 
-        #1afficher_grille(liste_case)
+        afficher_grille(liste_case)
         print("tour du joueur. "  + joueur + " tapez de 1 à 9")
         coups_jouer = int(input())
         if coups_jouer >= 7 :
             if liste_case[0][coups_jouer-7] == "_" :
                 liste_case[0][coups_jouer-7] = joueur
-                return afficher_grille(liste_case)
+                return
             else :
                 print("case déjâ utiliser !")
         elif coups_jouer >= 4:
             if liste_case[1][coups_jouer-4] == "_" :
                 liste_case[1][coups_jouer-4] = joueur
-                return afficher_grille(liste_case)
+                return
             else :
                 print("case déjâ utiliser !")
         elif coups_jouer >= 1:
             if liste_case[2][coups_jouer-1] == "_" :
                 liste_case[2][coups_jouer-1] = joueur
-                return afficher_grille(liste_case)
+                return
             else :
                 print("case déjâ utiliser !")
         else:
@@ -78,7 +78,7 @@ while True :
     if tour == 9 :
         print ("égality")
         break
-    
+
     if joueur == "X" :
         joueur = "O"
     else :
