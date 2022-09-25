@@ -9,7 +9,6 @@ def afficher_grille (grille) :
     for i in grille :
         print (i)
 
-
 def jouer_coups () :
     """fonction pour demander au joueur de jouer un coups entre 1 à 9 et vérifier si le coups est valide."""
     while True :
