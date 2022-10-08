@@ -12,8 +12,9 @@ def afficher_grille (grille) :
 def jouer_coups () :
     """fonction pour demander au joueur de jouer un coups entre 1 à 9 et vérifier si le coups est valide."""
     while True :
-
+        #affiche la grille
         afficher_grille(liste_case)
+
         print("tour du joueur. "  + joueur + " tapez de 1 à 9")
         coups_jouer = int(input())
         if coups_jouer < 10 :
@@ -38,7 +39,26 @@ def jouer_coups () :
             else:
                 print("erreur 24")
         else :
-            return print("veuillez jouer un coups valide ! ")
+            print("veuillez jouer un coups valide ! ")
+
+def verif_jeu (joueur) :
+     # verification des lignes
+    if liste_case[0][0] == liste_case[0][1] == liste_case[0][2] != "_" \
+    or liste_case[1][0] == liste_case[1][1] == liste_case[1][2] != "_" \
+    or liste_case[2][0] == liste_case[2][1] == liste_case[2][2] != "_" \
+    or liste_case[0][0] == liste_case[1][0] == liste_case[2][0] != "_" \
+    or liste_case[1][0] == liste_case[1][1] == liste_case[1][2] != "_" \
+    or liste_case[2][0] == liste_case[2][1] == liste_case[2][2] != "_" \
+    or liste_case[0][0] == liste_case[1][1] == liste_case[2][2] != "_" \
+    or liste_case[2][0] == liste_case[1][1] == liste_case[0][2] != "_" :
+        if joueur == "X" :
+            joueur = "joueur 1"
+            print(joueur + " Gagné")
+            return True
+        else :
+            joueur = "joueur 2"
+            print(joueur + " Gagné")
+            return True
 
 joueur = "X"
 tour = 0
@@ -46,43 +66,15 @@ tour = 0
 while True :
     tour += 1
 
- # verification des lignes
-    if liste_case[0][0] == liste_case[0][1] == liste_case[0][2] != "_" \
-    or liste_case[1][0] == liste_case[1][1] == liste_case[1][2] != "_" \
-    or liste_case[2][0] == liste_case[2][1] == liste_case[2][2] != "_" :
-        if joueur == "O" :
-            joueur = "joueur 1"
-        else :
-            joueur = "joueur 2"
-        print(joueur + " Gagné")
-        break
-
-# verification des colonnes
-    if liste_case[0][0] == liste_case[1][0] == liste_case[2][0] != "_" \
-    or liste_case[1][0] == liste_case[1][1] == liste_case[1][2] != "_" \
-    or liste_case[2][0] == liste_case[2][1] == liste_case[2][2] != "_":
-        if joueur == "O" :
-            joueur = "joueur 1"
-        else :
-            joueur = "joueur 2"
-        print(joueur + " Gagné")
-        break
-
-# verification des diagonales
-    if liste_case[0][0] == liste_case [1][1] == liste_case[2][2] != "_" \
-    or liste_case[2][0] == liste_case [1][1] == liste_case [0][2] != "_":
-        if joueur == "O" :
-            joueur = "joueur 1"
-        else :
-            joueur = "joueur 2"
-        print(joueur + " Gagné")
-        break
-    
     jouer_coups()
-    if tour == 9 :
+    
+    if verif_jeu(joueur) :
+        afficher_grille(liste_case)
+        break
+    elif tour == 9 :
         print ("égality")
         break
-
+        
     if joueur == "X" :
         joueur = "O"
     else :
