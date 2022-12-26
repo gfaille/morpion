@@ -6,6 +6,8 @@ pygame.init()
 # affiche la fenêtre 
 fenetre = pygame.display.set_mode((500, 500))
 
+police = pygame.font.SysFont("Roboto", 42)
+
 liste_case = [
     [0, 0, 0],
     [0, 0, 0],
@@ -25,6 +27,30 @@ def dessiner_croix (rect) :
 def dessiner_cercle (rect) :
     pygame.draw.circle(fenetre, (195, 195, 195), (rect.center), radius=10)
 
+def verif_jeu (joueur) :
+
+     # verification des lignes
+    if liste_case[0][0] == liste_case[0][1] == liste_case[0][2] != 0 \
+    or liste_case[1][0] == liste_case[1][1] == liste_case[1][2] != 0 \
+    or liste_case[2][0] == liste_case[2][1] == liste_case[2][2] != 0 \
+    or liste_case[0][0] == liste_case[1][0] == liste_case[2][0] != 0 \
+    or liste_case[1][0] == liste_case[1][1] == liste_case[1][2] != 0 \
+    or liste_case[2][0] == liste_case[2][1] == liste_case[2][2] != 0 \
+    or liste_case[0][0] == liste_case[1][1] == liste_case[2][2] != 0 \
+    or liste_case[2][0] == liste_case[1][1] == liste_case[0][2] != 0 :
+        fenetre.fill((0, 0, 0))
+        if joueur == 1 :
+            joueur = "joueur 1"
+            texte = police.render(joueur + " Gagné", 1, (255, 255, 255))
+            fenetre.blit(texte, (500*0.3, 500*0.3))
+            pygame.display.flip()
+            return True
+        else :
+            joueur = "joueur 2"
+            texte = police.render(joueur + " Gagné", 1, (255, 255, 255))
+            fenetre.blit(texte, (500*0.3, 500*0.3))
+            pygame.display.flip()
+            return True
 
 rect_1 = pygame.draw.rect(fenetre, (0, 0, 0), (0, 0, 166, 166))
 rect_2 = pygame.draw.rect(fenetre, (0, 0, 0), (166, 0, 166, 166))
@@ -40,16 +66,22 @@ rect_9 = pygame.draw.rect(fenetre, (0, 0, 0), (332, 332, 166, 166))
 
 
 joueur = 1
+tour = 0
 continuer = True
+
+# affiche la grille 
+afficher_grille()
 
 # boucle principale
 while continuer :
+
     for event in pygame.event.get() :
         if event.type == pygame.QUIT :
             continuer = False
 
+        # permet de jouer un coups valide à une case voulue, en vérifant si on clique sur un rectangle 
         elif event.type == pygame.MOUSEBUTTONDOWN :
-
+            tour += 1
             if rect_1.collidepoint(event.pos) :
                 if liste_case[0][0] == 0 :
                     coups = True
@@ -158,14 +190,30 @@ while continuer :
                 else : 
                     coups = False
 
+            v = verif_jeu(joueur)
+
+            if v == True :
+                pygame.time.delay(3000)
+                continuer = False
+
             # changement de joueur   
-            if coups != False :        
+            if coups != False :         
                 if joueur == 1 :
                     joueur = 2
                 else :
                     joueur = 1  
+            else :
+                tour -= 1
 
-    afficher_grille()
+            # vérifie si on à atteint les 9 tour si oui alors égalité
+            if tour == 9 :
+                fenetre.fill((0, 0, 0))
+                texte = police.render("égalité", 1, (255, 255, 255))
+                fenetre.blit(texte, (500*0.4, 500*0.4))
+                pygame.display.flip()
+                pygame.time.delay(3000)
+                continuer = False
+
     pygame.display.flip()
 
 print(liste_case)
