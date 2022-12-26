@@ -81,7 +81,7 @@ while continuer :
 
         # permet de jouer un coups valide à une case voulue, en vérifant si on clique sur un rectangle 
         elif event.type == pygame.MOUSEBUTTONDOWN :
-            tour += 1
+           
             if rect_1.collidepoint(event.pos) :
                 if liste_case[0][0] == 0 :
                     coups = True
@@ -190,14 +190,22 @@ while continuer :
                 else : 
                     coups = False
 
-            v = verif_jeu(joueur)
+            if verif_jeu(joueur) :
+                pygame.time.delay(3000)
+                continuer = False
 
-            if v == True :
+            # vérifie si on à atteint les 9 tour si oui alors égalité
+            elif tour == 9 :
+                fenetre.fill((0, 0, 0))
+                texte = police.render("égalité", 1, (255, 255, 255))
+                fenetre.blit(texte, (500*0.4, 500*0.4))
+                pygame.display.flip()
                 pygame.time.delay(3000)
                 continuer = False
 
             # changement de joueur   
-            if coups != False :         
+            if coups != False : 
+                tour += 1        
                 if joueur == 1 :
                     joueur = 2
                 else :
@@ -205,14 +213,6 @@ while continuer :
             else :
                 tour -= 1
 
-            # vérifie si on à atteint les 9 tour si oui alors égalité
-            if tour == 9 :
-                fenetre.fill((0, 0, 0))
-                texte = police.render("égalité", 1, (255, 255, 255))
-                fenetre.blit(texte, (500*0.4, 500*0.4))
-                pygame.display.flip()
-                pygame.time.delay(3000)
-                continuer = False
 
     pygame.display.flip()
 
